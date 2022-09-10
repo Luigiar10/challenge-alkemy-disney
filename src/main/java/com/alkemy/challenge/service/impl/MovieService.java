@@ -52,11 +52,11 @@ public class MovieService implements IMovieService {
         return null;
     }
 
-    public List<MovieDTO> getMovieByName(String name) {
-        return movieRepository.findByName(name);
+    public List<Movie> getMovieByName(String name) {
+        return movieRepository.findByNameStartingWith(name);
     }
 
-    public List<MovieDTO> getMovieByGenre(Long idGenre) {
+    public List<Movie> getMovieByGenre(Long idGenre) {
         return movieRepository.findByGenreIdGenre(idGenre);
     }
 }

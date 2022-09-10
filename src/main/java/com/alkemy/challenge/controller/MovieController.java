@@ -12,42 +12,38 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/movie")
 public class MovieController {
 
     @Autowired
     private MovieService movieService;
 
-    @GetMapping
+    @GetMapping("/movies")
     public ResponseEntity<List<Movie>> getAll() {
         return new ResponseEntity<>(movieService.getAll(), HttpStatus.OK);
     }
 
-    @GetMapping("/{idMovie}")
+    @GetMapping("/movies/{idMovie}")
     public ResponseEntity<MovieDTO> getMovieById(@PathVariable Long idMovie) {
         return new ResponseEntity<>(movieService.getMovieById(idMovie), HttpStatus.OK);
     }
 
-    @PostMapping
+    @PostMapping("/movies")
     public ResponseEntity<MovieDTO> saveMovie(@RequestBody MovieDTO movieDTO) {
         return new ResponseEntity<>(movieService.saveMovie(movieDTO), HttpStatus.CREATED);
     }
 
-    public ResponseEntity<Object> deleteMovieById(Long idMovie) {
+    @DeleteMapping("/movies/{idMovie}")
+    public ResponseEntity<Object> deleteMovieById(@PathVariable Long idMovie) {
         return new ResponseEntity<>(movieService.deleteMovieById(idMovie), HttpStatus.ACCEPTED);
     }
 
-    @GetMapping(
-            params = "genre"
-    )
-    public ResponseEntity<List<MovieDTO>> getMovieByGenre(@RequestParam(name = "genre") Long idGenre){
+    @GetMapping(value = "/movies", params = "genre")
+    public ResponseEntity<List<Movie>> getMovieByGenre(@RequestParam(name = "genre") Long idGenre){
         return new ResponseEntity<>(movieService.getMovieByGenre(idGenre), HttpStatus.OK);
     }
 
-    @GetMapping(
-            params = "name"
-    )
-    public ResponseEntity<List<MovieDTO>> getMovieByName(@RequestParam String name){
+    @GetMapping(value = "/movies", params = "name")
+    public ResponseEntity<List<Movie>> getMovieByName(@RequestParam String name){
         return new ResponseEntity<>(movieService.getMovieByName(name), HttpStatus.OK);
     }
 
